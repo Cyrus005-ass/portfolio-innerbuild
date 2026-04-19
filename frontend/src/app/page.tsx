@@ -1,53 +1,103 @@
 'use client';
 
-import { useMemo, useState, type FormEvent } from 'react';
+import { useState, type FormEvent } from 'react';
+
+const profile = {
+  name: 'Cyrus-y ASSOGBA',
+  title: 'Développeur Web Full-Stack & UI/UX Designer',
+  location: 'Located in Bénin',
+  bio:
+    "Passionné par la création d'expériences web immersives et performantes. Mon approche marie un code structuré, une architecture backend robuste et un design interactif impactant orienté utilisateur.",
+  email: 'contact@cyrusy.dev',
+  linkedin: 'https://linkedin.com/in/cyrusy',
+  github: 'https://github.com/cyrusy',
+  avatar: '/assets/img/cyr.png',
+  heroImage: '/assets/img/ass.png',
+  cv: '/uploads/cv_69e4140e903c9.pdf',
+};
 
 const skills = [
-  { category: 'Backend', items: ['PHP', 'Node.js', 'Express', 'REST API'] },
-  { category: 'Frontend', items: ['HTML', 'CSS', 'JavaScript', 'React', 'Next.js'] },
-  { category: 'Base de données', items: ['MySQL', 'PostgreSQL', 'SQL'] },
-  { category: 'Outils', items: ['Git', 'GitHub', 'WAMP', 'VS Code'] },
+  {
+    category: 'Frontend',
+    items: [
+      { name: 'HTML5 / CSS3', level: 95 },
+      { name: 'JavaScript (ES6+)', level: 90 },
+      { name: 'GSAP / Motion', level: 85 },
+    ],
+  },
+  {
+    category: 'Backend',
+    items: [
+      { name: 'PHP 8', level: 90 },
+      { name: 'MySQL', level: 85 },
+    ],
+  },
+  {
+    category: 'Design',
+    items: [
+      { name: 'UI / UX Design', level: 80 },
+    ],
+  },
 ];
 
 const projects = [
   {
-    title: 'Portfolio personnel',
-    description: 'Une vitrine moderne pour présenter mes compétences, projets et certifications.',
-    tags: ['Design', 'Responsive', 'SEO'],
+    title: 'Portfolio Premium',
+    description:
+      'Portfolio immersif développé avec une approche motion design fluide via GSAP, un espace d’administration PHP sur mesure et un code ultra optimisé.',
+    tags: ['HTML', 'CSS', 'JS', 'GSAP', 'PHP', 'MySQL'],
+    image: '/uploads/317c70198936b0f591d56c887ca87f70e507987b_69e3b7baecf52.jpg',
+    year: '2026',
   },
   {
-    title: 'Tableau de bord admin',
-    description: 'Interface d’administration pour gérer le contenu d’un portfolio dynamique.',
-    tags: ['CRUD', 'Auth', 'Dashboard'],
-  },
-  {
-    title: 'API portfolio',
-    description: 'Architecture backend prête pour connecter les contenus du site.',
-    tags: ['API', 'Express', 'Database'],
+    title: 'E-commerce Architect',
+    description:
+      'Plateforme de vente en ligne complète avec gestion de paniers dynamiques, interface d’administration produit et checkout sécurisé.',
+    tags: ['PHP', 'MySQL', 'Stripe API'],
+    image: '/uploads/1a90d167b1dea4db725289f68689b5161d6de08a_69e3b7a5f14a1.jpg',
+    year: '2025',
   },
 ];
 
 const certifications = [
-  'Développement Web',
-  'Intégration UI',
-  'Bases de données relationnelles',
+  {
+    title: 'Certification Web 01',
+    issuer: 'Développement web',
+    date: '2026',
+    image: '/uploads/8e4124897bfff812e9a2e424436bf723398c69da_69e391f4cb0b1.png',
+  },
+  {
+    title: 'Certification Web 02',
+    issuer: 'Intégration UI / UX',
+    date: '2026',
+    image: '/uploads/8e4124897bfff812e9a2e424436bf723398c69da_69e38f71b15c7.png',
+  },
+  {
+    title: 'Certification Web 03',
+    issuer: 'Bases de données',
+    date: '2026',
+    image: '/uploads/073c7576b57dfafa7556115c4364dddfb6c7f243_69e38eeb6125f.png',
+  },
+  {
+    title: 'Certification Web 04',
+    issuer: 'Déploiement & production',
+    date: '2026',
+    image: '/uploads/073c7576b57dfafa7556115c4364dddfb6c7f243_69e38d8726a69.png',
+  },
 ];
 
 export default function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [sent, setSent] = useState(false);
 
-  const navLinks = useMemo(
-    () => [
-      ['Accueil', '#hero'],
-      ['À propos', '#about'],
-      ['Compétences', '#skills'],
-      ['Projets', '#projects'],
-      ['Certifications', '#certifications'],
-      ['Contact', '#contact'],
-    ],
-    [],
-  );
+  const navLinks = [
+    ['Accueil', '#hero'],
+    ['À propos', '#about'],
+    ['Compétences', '#skills'],
+    ['Projets', '#projects'],
+    ['Certifications', '#certifications'],
+    ['Contact', '#contact'],
+  ];
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -80,12 +130,19 @@ export default function HomePage() {
       </header>
 
       <section id="hero" className="hero-section">
+        <div
+          className="hero-bg"
+          aria-hidden="true"
+          style={{
+            backgroundImage: `linear-gradient(to bottom, rgba(6, 9, 14, 0.42), rgba(6, 9, 14, 0.82)), url(${profile.heroImage})`,
+          }}
+        />
         <div className="container hero-shell">
           <div className="hero-copy">
             <p className="hero-kicker">Développeur web</p>
-            <h1>Je construis des interfaces claires et des expériences fluides.</h1>
+            <h1>{profile.name}</h1>
             <p className="hero-role-text">
-              Portfolio front-end statique réalisé uniquement en HTML, CSS et JavaScript via React.
+              {profile.title}
             </p>
             <div className="hero-actions">
               <a className="btn btn-primary" href="#projects">Voir les projets</a>
@@ -94,7 +151,7 @@ export default function HomePage() {
           </div>
 
           <aside className="hero-located">
-            <span>Disponible pour de nouveaux projets</span>
+            <span>{profile.location}</span>
             <span className="hero-dot" />
           </aside>
         </div>
@@ -102,22 +159,25 @@ export default function HomePage() {
 
       <section id="about" className="about-section">
         <div className="container about-shell">
-          <div className="about-photo" aria-hidden="true">
+          <div
+            className="about-photo"
+            aria-hidden="true"
+            style={{
+              backgroundImage: `linear-gradient(to bottom, rgba(7, 10, 16, 0.08), rgba(7, 10, 16, 0.6)), url(${profile.avatar})`,
+            }}
+          >
             <div className="about-photo-inner">
-              <span>Portfolio</span>
-              <strong>Front uniquement</strong>
+              <span>Profil</span>
+              <strong>{profile.name}</strong>
             </div>
           </div>
 
           <div className="about-card">
             <h2 className="section-title section-title-tight">À propos</h2>
-            <p className="about-text">
-              Je crée des interfaces propres, rapides et faciles à utiliser. Cette version du site est volontairement
-              indépendante du backend pour valider d’abord l’expérience visuelle, la structure et le comportement côté client.
-            </p>
+            <p className="about-text">{profile.bio}</p>
             <div className="about-actions">
               <a className="btn btn-secondary" href="#skills">Voir les compétences</a>
-              <a className="btn btn-primary" href="#contact">Démarrer un projet</a>
+              <a className="btn btn-primary" href={profile.cv} download>Télécharger le CV</a>
             </div>
           </div>
         </div>
@@ -132,8 +192,11 @@ export default function HomePage() {
                 <h3 className="skill-category-title">{group.category}</h3>
                 <ul className="skill-list">
                   {group.items.map((item) => (
-                    <li key={item} className="skill-item">
-                      <span className="skill-pill">{item}</span>
+                    <li key={item.name} className="skill-item">
+                      <span className="skill-pill">
+                        {item.name}
+                        <small>{item.level}%</small>
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -149,9 +212,14 @@ export default function HomePage() {
           <div className="projects-grid">
             {projects.map((project) => (
               <article key={project.title} className="project-card">
-                <div className="project-image project-fallback">{project.title.slice(0, 2).toUpperCase()}</div>
+                <div className="project-image">
+                  <img src={project.image} alt={`Aperçu de ${project.title}`} loading="lazy" />
+                </div>
                 <div className="project-details">
-                  <h3>{project.title}</h3>
+                  <div className="project-header-row">
+                    <h3>{project.title}</h3>
+                    <span className="project-year">{project.year}</span>
+                  </div>
                   <p>{project.description}</p>
                   <div className="project-stack">
                     {project.tags.map((tag) => (
@@ -170,11 +238,16 @@ export default function HomePage() {
           <h2 className="section-title section-title-tight">Certifications</h2>
           <div className="cert-grid">
             {certifications.map((cert) => (
-              <article key={cert} className="cert-card">
-                <div className="cert-media cert-fallback">CERT</div>
+              <article key={cert.title} className="cert-card">
+                <div className="cert-media">
+                  <img src={cert.image} alt={cert.title} loading="lazy" />
+                </div>
                 <div className="cert-body">
-                  <h3>{cert}</h3>
-                  <p>Validation de compétences sur les fondamentaux du développement web.</p>
+                  <h3>{cert.title}</h3>
+                  <p>{cert.issuer}</p>
+                  <div className="project-stack cert-meta">
+                    <span>{cert.date}</span>
+                  </div>
                 </div>
               </article>
             ))}
@@ -187,7 +260,11 @@ export default function HomePage() {
           <div className="contact-head">
             <h2 className="section-title section-title-tight">Contact</h2>
             <p>Une idée, une mission ou un projet à lancer. Le formulaire fonctionne côté client pour la démonstration.</p>
-            <a href="mailto:contact@example.com">contact@example.com</a>
+            <a href={`mailto:${profile.email}`}>{profile.email}</a>
+            <div className="contact-links-inline">
+              <a href={profile.github} target="_blank" rel="noreferrer">GitHub</a>
+              <a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+            </div>
           </div>
 
           <form className="contact-form" onSubmit={onSubmit}>
