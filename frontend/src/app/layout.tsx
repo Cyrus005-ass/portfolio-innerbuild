@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 
 export const metadata = {
   title: 'C-Y Ass | Portfolio',
-  description: 'Portfolio API + Front séparé (migration progressive)'
+  description: 'Portfolio statique front-end, sans dépendance backend'
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
