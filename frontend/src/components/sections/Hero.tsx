@@ -1,5 +1,5 @@
-import { uploadUrl } from '@/lib/api';
-import type { Profile } from '@/lib/types';
+import { uploadUrl } from '../../lib/api';
+import type { Profile } from '../../lib/types';
 
 export function Hero({ profile }: { profile: Profile }) {
   const heroImage = profile.avatar ? uploadUrl(profile.avatar) : '';

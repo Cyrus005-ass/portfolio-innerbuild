@@ -1,4 +1,4 @@
-import type { Skill } from '@/lib/types';
+import type { Skill } from '../../lib/types';
 
 type GroupedSkills = Record<string, Skill[]>;
 

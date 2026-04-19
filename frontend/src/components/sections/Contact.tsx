@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, type FormEvent } from 'react';
-import { apiPost } from '@/lib/api';
-import type { Profile } from '@/lib/types';
+import { apiPost } from '../../lib/api';
+import type { Profile } from '../../lib/types';
 
 export function Contact({ profile }: { profile: Profile }) {
   const [form, setForm] = useState({ nom: '', email: '', sujet: '', contenu: '' });

@@ -1,5 +1,5 @@
-import { uploadUrl } from '@/lib/api';
-import type { Project } from '@/lib/types';
+import { uploadUrl } from '../../lib/api';
+import type { Project } from '../../lib/types';
 
 export function Projects({ projects }: { projects: Project[] }) {
   return (

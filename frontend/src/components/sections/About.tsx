@@ -1,5 +1,5 @@
-import { uploadUrl } from '@/lib/api';
-import type { Profile } from '@/lib/types';
+import { uploadUrl } from '../../lib/api';
+import type { Profile } from '../../lib/types';
 
 export function About({ profile }: { profile: Profile }) {
   const bio = profile.bio || 'Passionné par la création d\'expériences web immersives et performantes.';

@@ -1,5 +1,5 @@
-import { uploadUrl } from '@/lib/api';
-import type { Certification } from '@/lib/types';
+import { uploadUrl } from '../../lib/api';
+import type { Certification } from '../../lib/types';
 
 export function Certifications({ certifications }: { certifications: Certification[] }) {
   return (
