@@ -9,6 +9,18 @@ async function listProjects(_req, res, next) {
   }
 }
 
+async function getProject(req, res, next) {
+  try {
+    const item = await projectsService.getProjectById(Number(req.params.id));
+    if (!item) {
+      return res.status(404).json({ error: 'Projet non trouvé' });
+    }
+    res.json(item);
+  } catch (err) {
+    next(err);
+  }
+}
+
 async function createProject(req, res, next) {
   try {
     const item = await projectsService.createProject(req.body || {});
@@ -38,6 +50,7 @@ async function deleteProject(req, res, next) {
 
 module.exports = {
   listProjects,
+  getProject,
   createProject,
   updateProject,
   deleteProject

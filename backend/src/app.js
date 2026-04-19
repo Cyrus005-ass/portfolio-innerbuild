@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const apiRouter = require('./routes');
 const { errorHandler } = require('./middlewares/errorHandler');
+const { uploadDir } = require('./utils/upload');
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(cors({
 
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
+app.use('/uploads', express.static(uploadDir));
 
 app.get('/health', (_req, res) => {
   res.json({ ok: true, service: 'innerbuild-api' });

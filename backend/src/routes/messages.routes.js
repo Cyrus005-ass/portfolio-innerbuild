@@ -4,7 +4,7 @@ const { authJwt } = require('../middlewares/authJwt');
 
 const router = express.Router();
 
-router.post('/contact', messagesController.createContactMessage);
-router.get('/admin/messages', authJwt, messagesController.listMessages);
+router.post('/', messagesController.createContactMessage);
+router.get('/', authJwt, messagesController.listMessages);
 
 module.exports = router;

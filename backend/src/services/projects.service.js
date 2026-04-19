@@ -4,6 +4,10 @@ async function listProjects() {
   return projectsRepo.listProjects();
 }
 
+async function getProjectById(id) {
+  return projectsRepo.getProjectById(id);
+}
+
 async function createProject(data) {
   const payload = {
     titre: (data.titre || '').trim(),
@@ -47,6 +51,7 @@ async function deleteProject(id) {
 
 module.exports = {
   listProjects,
+  getProjectById,
   createProject,
   updateProject,
   deleteProject

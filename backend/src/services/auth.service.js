@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const adminRepo = require('../repositories/admin.repo');
-const { signAccessToken } = require('../utils/tokens');
+const db = require('../config/db');
+const { signAccessToken, signRefreshToken } = require('../utils/tokens');
 
 async function login({ email, password }) {
   const admin = await adminRepo.findAdminByEmail((email || '').trim());
@@ -22,9 +23,17 @@ async function login({ email, password }) {
     role: admin.role || 'admin',
     email: admin.email
   });
+  const refresh_token = signRefreshToken({
+    sub: admin.id,
+    role: admin.role || 'admin',
+    email: admin.email
+  });
+
+  await db.execute('UPDATE admins SET last_login = NOW() WHERE id = ?', [admin.id]);
 
   return {
     access_token: token,
+    refresh_token,
     admin: {
       id: admin.id,
       email: admin.email,

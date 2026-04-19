@@ -5,6 +5,6 @@ const { authJwt } = require('../middlewares/authJwt');
 const router = express.Router();
 
 router.get('/', profileController.getProfile);
-router.put('/admin/profile', authJwt, profileController.updateProfile);
+router.put('/', authJwt, profileController.updateProfile);
 
 module.exports = router;
