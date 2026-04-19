@@ -197,15 +197,14 @@ p {
   z-index: 1;
   min-height: 100vh;
   display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: end;
-  gap: 1rem;
+  grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+  align-items: center;
+  gap: 1.5rem;
   padding: 7.5rem 0 4rem;
 }
 
 .hero-copy {
   max-width: 720px;
-  align-self: end;
 }
 
 .hero-kicker {
@@ -240,22 +239,108 @@ p {
   margin-top: 1.5rem;
 }
 
-.hero-located {
-  align-self: end;
-  display: flex;
-  align-items: center;
+.hero-highlights {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.85rem;
-  padding: 0.95rem 1.05rem;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 16px;
-  background: rgba(6, 9, 14, 0.38);
-  backdrop-filter: blur(10px);
+  margin-top: 1.5rem;
+}
+
+.hero-highlight {
+  padding: 0.9rem 1rem;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(8, 12, 18, 0.44);
+  backdrop-filter: blur(12px);
+}
+
+.hero-highlight strong {
+  display: block;
+  color: #fff;
+  font-size: clamp(1.15rem, 2.4vw, 1.6rem);
+  letter-spacing: -0.04em;
+}
+
+.hero-highlight span {
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.hero-sidecard {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(180deg, rgba(8, 12, 18, 0.66), rgba(8, 12, 18, 0.42));
+  backdrop-filter: blur(16px);
+  box-shadow: 0 24px 55px rgba(0, 0, 0, 0.24);
+}
+
+.hero-sidecard-media {
+  overflow: hidden;
+  min-height: 300px;
+  border-radius: 22px;
+  background: linear-gradient(180deg, rgba(142, 184, 255, 0.12), rgba(11, 15, 22, 0.1));
+}
+
+.hero-sidecard-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-sidecard-body {
+  display: grid;
+  gap: 0.75rem;
+  padding: 0.25rem 0.15rem 0.1rem;
   color: #f3f6ff;
 }
 
-.hero-located span:first-child {
-  font-size: 0.95rem;
-  font-weight: 500;
+.hero-sidecard-label {
+  margin: 0;
+  color: var(--accent-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.78rem;
+}
+
+.hero-sidecard-body h2 {
+  margin: 0;
+  font-size: clamp(1.45rem, 3vw, 2rem);
+  letter-spacing: -0.04em;
+}
+
+.hero-sidecard-body p {
+  margin: 0;
+}
+
+.hero-sidecard-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.hero-sidecard-links a,
+.cert-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.55rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  font-size: 0.88rem;
+}
+
+.hero-sidecard-links a:hover,
+.cert-link:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.25);
 }
 
 .hero-dot {
@@ -289,6 +374,21 @@ p {
   position: relative;
   overflow: hidden;
   background: radial-gradient(circle at top, rgba(198, 220, 255, 0.18), transparent 38%), linear-gradient(160deg, #152033, #0b0f16 70%);
+}
+
+.about-photo-badge {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  padding: 0.55rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(8, 12, 18, 0.52);
+  color: #fff;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  backdrop-filter: blur(10px);
 }
 
 .about-photo::after {
@@ -512,6 +612,8 @@ p {
   border-radius: 18px;
   border: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.03);
+  display: grid;
+  grid-template-rows: auto 1fr;
 }
 
 .cert-media {
@@ -528,6 +630,8 @@ p {
 
 .cert-body {
   padding: 1rem;
+  display: grid;
+  gap: 0.7rem;
 }
 
 .cert-body p {
@@ -570,6 +674,10 @@ p {
   border: 1px solid var(--line);
   color: var(--text);
   background: rgba(255, 255, 255, 0.03);
+}
+
+.cert-link {
+  width: fit-content;
 }
 
 .contact-form {
@@ -649,10 +757,19 @@ p {
     min-height: 100vh;
     padding-top: 6.8rem;
     padding-bottom: 3.25rem;
+    grid-template-columns: 1fr;
   }
 
-  .hero-located {
-    justify-self: start;
+  .hero-highlights {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .hero-sidecard {
+    order: -1;
+  }
+
+  .hero-sidecard-media {
+    min-height: 240px;
   }
 
   .about-photo {
@@ -689,6 +806,10 @@ p {
   .hero-located {
     width: 100%;
     justify-content: space-between;
+  }
+
+  .hero-highlights {
+    grid-template-columns: 1fr;
   }
 
   .about-card,

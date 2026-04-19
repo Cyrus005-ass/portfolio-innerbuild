@@ -16,6 +16,12 @@ const profile = {
   cv: '/uploads/cv_69e4140e903c9.pdf',
 };
 
+const highlights = [
+  { value: '05+', label: 'années' },
+  { value: '12', label: 'livrables' },
+  { value: '100%', label: 'sur mesure' },
+];
+
 const skills = [
   {
     category: 'Frontend',
@@ -139,20 +145,36 @@ export default function HomePage() {
         />
         <div className="container hero-shell">
           <div className="hero-copy">
-            <p className="hero-kicker">Développeur web</p>
+            <p className="hero-kicker">Portfolio premium</p>
             <h1>{profile.name}</h1>
-            <p className="hero-role-text">
-              {profile.title}
-            </p>
+            <p className="hero-role-text">{profile.title}</p>
             <div className="hero-actions">
               <a className="btn btn-primary" href="#projects">Voir les projets</a>
               <a className="btn btn-secondary" href="#contact">Me contacter</a>
             </div>
+            <div className="hero-highlights" aria-label="Points forts">
+              {highlights.map((item) => (
+                <div key={item.label} className="hero-highlight">
+                  <strong>{item.value}</strong>
+                  <span>{item.label}</span>
+                </div>
+              ))}
+            </div>
           </div>
 
-          <aside className="hero-located">
-            <span>{profile.location}</span>
-            <span className="hero-dot" />
+          <aside className="hero-sidecard">
+            <div className="hero-sidecard-media">
+              <img src={profile.avatar} alt={`Portrait de ${profile.name}`} loading="eager" />
+            </div>
+            <div className="hero-sidecard-body">
+              <p className="hero-sidecard-label">Basé à</p>
+              <h2>{profile.location}</h2>
+              <p>Interface statique, direction artistique sombre et contenu réel du portfolio intégrés localement.</p>
+              <div className="hero-sidecard-links">
+                <a href={profile.github} target="_blank" rel="noreferrer">GitHub</a>
+                <a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+              </div>
+            </div>
           </aside>
         </div>
       </section>
@@ -166,6 +188,7 @@ export default function HomePage() {
               backgroundImage: `linear-gradient(to bottom, rgba(7, 10, 16, 0.08), rgba(7, 10, 16, 0.6)), url(${profile.avatar})`,
             }}
           >
+            <div className="about-photo-badge">Available for premium freelance work</div>
             <div className="about-photo-inner">
               <span>Profil</span>
               <strong>{profile.name}</strong>
@@ -248,6 +271,9 @@ export default function HomePage() {
                   <div className="project-stack cert-meta">
                     <span>{cert.date}</span>
                   </div>
+                  <a className="cert-link" href={cert.image} target="_blank" rel="noreferrer">
+                    Ouvrir
+                  </a>
                 </div>
               </article>
             ))}
