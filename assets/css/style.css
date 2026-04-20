@@ -1,4 +1,4 @@
-:root {
+﻿:root {
     --bg-dark: #0b0f16;
     --bg-elev: #131a25;
     --text-light: #f3f6ff;
@@ -624,6 +624,12 @@ img { max-width: 100%; display: block; }
 
 .split-word {
     display: inline-block;
+    transform: none;
+    opacity: 1;
+}
+
+.gsap-enabled .split-word {
     transform: translateY(120%);
     opacity: 0;
 }
+

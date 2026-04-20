@@ -1,7 +1,11 @@
-document.addEventListener('DOMContentLoaded', () => {
+﻿document.addEventListener('DOMContentLoaded', () => {
     const body = document.body;
     const hasGSAP = typeof window.gsap !== 'undefined';
     const hasScrollTrigger = typeof window.ScrollTrigger !== 'undefined';
+
+    if (hasGSAP) {
+        body.classList.add('gsap-enabled');
+    }
 
     const qs = (selector, scope = document) => scope.querySelector(selector);
     const qsa = (selector, scope = document) => Array.from(scope.querySelectorAll(selector));
@@ -374,3 +378,4 @@ document.addEventListener('DOMContentLoaded', () => {
         playLoader();
     }
 });
+
