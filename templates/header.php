@@ -108,20 +108,29 @@ $surfaceColor = preg_match($colorRegex, $surfaceColor) ? strtoupper($surfaceColo
                     <span>C-Y Ass</span>
                 </a>
             </div>
-            <ul class="nav-links">
-                <li><a href="#hero">Accueil</a></li>
-                <li><a href="#about">A propos</a></li>
-                <li><a href="#skills">Competences</a></li>
-                <li><a href="#projects">Projets</a></li>
-                <li><a href="#certifications">Certifications</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+
+            <aside class="nav-links" aria-hidden="true">
+                <div class="nav-sidebar-top">
+                    <p class="nav-dev-title">Dev back-end | Full-Stack &amp; UI/UX Designer</p>
+                    <button type="button" class="menu-close" aria-label="Fermer le menu">&times;</button>
+                </div>
+                <ul class="nav-links-list">
+                    <li><a class="nav-link" href="#hero"><span class="nav-icon">🏠</span><span>Accueil</span></a></li>
+                    <li><a class="nav-link" href="#about"><span class="nav-icon">👤</span><span>A propos</span></a></li>
+                    <li><a class="nav-link" href="#skills"><span class="nav-icon">🔧</span><span>Competences</span></a></li>
+                    <li><a class="nav-link" href="#projects"><span class="nav-icon">📁</span><span>Projets</span></a></li>
+                    <li><a class="nav-link" href="#certifications"><span class="nav-icon">🏆</span><span>Certifications</span></a></li>
+                    <li><a class="nav-link" href="#contact"><span class="nav-icon">✉️</span><span>Contact</span></a></li>
+                </ul>
+            </aside>
+
             <button class="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
         </nav>
+        <div class="nav-backdrop" aria-hidden="true"></div>
     </header>
 
     <main id="main-container">

@@ -9,12 +9,15 @@
     const words = qsa('.loading-words h2');
     const menuButton = qs('.menu-toggle');
     const navLinks = qs('.nav-links');
+    const menuCloseButton = qs('.menu-close', navLinks || document);
+    const navBackdrop = qs('.nav-backdrop');
     const lightbox = qs('#lightbox');
     const lightboxImg = qs('#lightbox-img');
     const lightboxTitle = qs('#lightbox-title');
     const lightboxLink = qs('#lightbox-link');
     const lightboxClose = qs('.lightbox-close', lightbox || document);
 
+    const navAnchors = qsa('.nav-link', navLinks || document);
     const splitTargets = qsa('.js-split-text');
     const animatedSelectors = [
         '.about-text-container',
@@ -122,13 +125,19 @@
         menuButton.classList.toggle('active', isOpen);
         navLinks.classList.toggle('active', isOpen);
         menuButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        navLinks.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
         body.classList.toggle('menu-open', isOpen);
+
+        if (navBackdrop) {
+            navBackdrop.classList.toggle('active', isOpen);
+            navBackdrop.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+        }
 
         if (hasGSAP && isOpen) {
             window.gsap.fromTo(
-                qsa('a', navLinks),
-                { opacity: 0, y: 18 },
-                { opacity: 1, y: 0, duration: 0.36, stagger: 0.06, ease: 'power3.out' }
+                navAnchors,
+                { opacity: 0, x: -12 },
+                { opacity: 1, x: 0, duration: 0.32, stagger: 0.05, ease: 'power3.out' }
             );
         }
     };
@@ -138,8 +147,22 @@
             setMenuOpen(!navLinks.classList.contains('active'));
         });
 
-        qsa('a', navLinks).forEach((link) => {
+        if (menuCloseButton) {
+            menuCloseButton.addEventListener('click', () => setMenuOpen(false));
+        }
+
+        if (navBackdrop) {
+            navBackdrop.addEventListener('click', () => setMenuOpen(false));
+        }
+
+        navAnchors.forEach((link) => {
             link.addEventListener('click', () => setMenuOpen(false));
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 980 && navLinks.classList.contains('active')) {
+                setMenuOpen(false);
+            }
         });
     }
 
@@ -158,6 +181,36 @@
             window.scrollTo({ top: Math.max(0, destination), behavior: 'smooth' });
         });
     });
+
+    const updateActiveNavLink = () => {
+        if (navAnchors.length === 0) return;
+
+        const header = qs('.main-header');
+        const offset = (header ? header.offsetHeight : 0) + 18;
+        let activeAnchor = navAnchors[0];
+
+        navAnchors.forEach((anchor) => {
+            const href = anchor.getAttribute('href');
+            if (!href || !href.startsWith('#')) return;
+
+            const section = qs(href);
+            if (!section) return;
+
+            const sectionTop = section.getBoundingClientRect().top + window.pageYOffset;
+            if (window.pageYOffset + offset >= sectionTop) {
+                activeAnchor = anchor;
+            }
+        });
+
+        navAnchors.forEach((anchor) => anchor.classList.remove('active'));
+        if (activeAnchor) {
+            activeAnchor.classList.add('active');
+        }
+    };
+
+    updateActiveNavLink();
+    window.addEventListener('scroll', updateActiveNavLink, { passive: true });
+    window.addEventListener('resize', updateActiveNavLink);
 
     const initFallbackReveal = () => {
         const io = new IntersectionObserver(
@@ -373,6 +426,9 @@
         playLoader();
     }
 });
+
+
+
 
 
 
