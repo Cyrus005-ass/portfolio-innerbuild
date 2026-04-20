@@ -548,9 +548,8 @@ img { max-width: 100%; display: block; }
 }
 
 [data-animate] {
-    opacity: 0;
-    transform: translateY(24px);
-    will-change: transform, opacity;
+    opacity: 1;
+    transform: none;
 }
 
 [data-animate].is-inview {
@@ -601,9 +600,9 @@ img { max-width: 100%; display: block; }
     }
 
     [data-animate] {
-        opacity: 1 !important;
-        transform: none !important;
-    }
+    opacity: 1;
+    transform: none;
+}
 }
 
 .about-section {
@@ -629,7 +628,8 @@ img { max-width: 100%; display: block; }
 }
 
 .gsap-enabled .split-word {
-    transform: translateY(120%);
-    opacity: 0;
+    transform: none;
+    opacity: 1;
 }
+
 
