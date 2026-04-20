@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $bio = $profil['bio'] ?? "Passionne par la creation d'experiences web immersives et performantes, je mets mon expertise technique au service de vos projets.";
 $basePath = rtrim((string) ($config['base_path'] ?? ''), '/');
 ?>
@@ -7,7 +7,7 @@ $basePath = rtrim((string) ($config['base_path'] ?? ''), '/');
     <div class="container about-container">
         <div class="about-grid">
             <div class="about-text-container">
-                <p class="about-text js-split-text"><?= nl2br(e($bio)) ?></p>
+                <p class="about-text"><?= nl2br(e($bio)) ?></p>
                 <div class="about-actions">
                     <div class="magnetic"><a href="#contact" class="btn btn-primary magnetic-inner about-primary-btn">Discutons de votre projet</a></div>
                     <?php if (!empty($profil['cv_url'])): ?>
@@ -18,4 +18,5 @@ $basePath = rtrim((string) ($config['base_path'] ?? ''), '/');
         </div>
     </div>
 </section>
+
 

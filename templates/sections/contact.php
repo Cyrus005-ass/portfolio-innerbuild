@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 if (!isset($profilData)) {
     $stmtProfilContact = $pdo->query('SELECT email_contact, telephone, avatar FROM profil WHERE id = 1 LIMIT 1');
     $profilData = $stmtProfilContact->fetch();
@@ -21,9 +21,9 @@ $photoC = resolveMediaPath($profilData['avatar'] ?? '', '../assets/img/cyr.png')
         <div class="contact-header">
             <div class="contact-header-row">
                 <div class="profile-picture" style="background-image: url('<?= e($photoC) ?>');"></div>
-                <h2 class="section-title js-split-text">Let's work</h2>
+                <h2 class="section-title">Let's work</h2>
             </div>
-            <h2 class="section-title js-split-text">together</h2>
+            <h2 class="section-title">together</h2>
         </div>
 
         <div class="contact-form-wrapper">
@@ -56,3 +56,4 @@ $photoC = resolveMediaPath($profilData['avatar'] ?? '', '../assets/img/cyr.png')
         </div>
     </div>
 </section>
+

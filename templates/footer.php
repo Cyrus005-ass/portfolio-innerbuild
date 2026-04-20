@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $stmtProfilFooter = $pdo->query('SELECT linkedin, github, instagram, email_contact FROM profil WHERE id = 1 LIMIT 1');
 $profilFooter = $stmtProfilFooter->fetch();
 $linkedin = $profilFooter['linkedin'] ?? null;
@@ -6,6 +6,8 @@ $github = $profilFooter['github'] ?? null;
 $instagram = $profilFooter['instagram'] ?? null;
 $footerEmail = !empty($profilFooter['email_contact']) ? $profilFooter['email_contact'] : 'contact@example.com';
 $basePath = rtrim((string) ($config['base_path'] ?? ''), '/');
+$jsPath = dirname(__DIR__) . '/assets/js/main.js';
+$jsVersion = is_file($jsPath) ? (string) filemtime($jsPath) : (string) time();
 ?>
 </main>
 
@@ -45,6 +47,6 @@ $basePath = rtrim((string) ($config['base_path'] ?? ''), '/');
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollTrigger.min.js"></script>
-<script src="<?= htmlspecialchars($basePath . '/assets/js/main.js') ?>"></script>
+<script src="<?= htmlspecialchars($basePath . '/assets/js/main.js?v=' . $jsVersion) ?>"></script>
 </body>
 </html>

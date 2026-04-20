@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $publicTheme = 'midnight';
 $siteFont = 'outfit';
 $titleScale = 1.0;
@@ -8,6 +8,8 @@ $accentSoftColor = '#C5DCFF';
 $bgColor = '#0B0F16';
 $surfaceColor = '#131A25';
 $basePath = rtrim((string) ($config['base_path'] ?? ''), '/');
+$stylePath = dirname(__DIR__) . '/assets/css/style.css';
+$styleVersion = is_file($stylePath) ? (string) filemtime($stylePath) : (string) time();
 
 if (isset($profil) && is_array($profil)) {
     $publicTheme = !empty($profil['site_theme']) ? (string) $profil['site_theme'] : 'midnight';
@@ -66,7 +68,7 @@ $surfaceColor = preg_match($colorRegex, $surfaceColor) ? strtoupper($surfaceColo
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=<?= htmlspecialchars($fontMap[$siteFont]) ?>&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="<?= htmlspecialchars($basePath . '/assets/css/style.css') ?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars($basePath . '/assets/css/style.css?v=' . $styleVersion) ?>">
 
     <style>
         body {

@@ -2,7 +2,7 @@
     const body = document.body;
     const hasGSAP = typeof window.gsap !== 'undefined';
     const hasScrollTrigger = typeof window.ScrollTrigger !== 'undefined';
-const qs = (selector, scope = document) => scope.querySelector(selector);
+    const qs = (selector, scope = document) => scope.querySelector(selector);
     const qsa = (selector, scope = document) => Array.from(scope.querySelectorAll(selector));
 
     const loader = qs('.loading-container');
@@ -122,7 +122,7 @@ const qs = (selector, scope = document) => scope.querySelector(selector);
         menuButton.classList.toggle('active', isOpen);
         navLinks.classList.toggle('active', isOpen);
         menuButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-        body.style.overflow = isOpen ? 'hidden' : '';
+        body.classList.toggle('menu-open', isOpen);
 
         if (hasGSAP && isOpen) {
             window.gsap.fromTo(
@@ -373,5 +373,6 @@ const qs = (selector, scope = document) => scope.querySelector(selector);
         playLoader();
     }
 });
+
 
 

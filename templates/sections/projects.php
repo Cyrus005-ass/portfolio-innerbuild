@@ -1,9 +1,9 @@
-<?php
+﻿<?php
 ?>
 <div class="rounded-div-wrap rounded-light"><div class="rounded-div"></div></div>
 <section id="projects" class="section projects-section">
     <div class="container">
-        <h2 class="section-title js-split-text">Projets<br>Recents</h2>
+        <h2 class="section-title">Projets<br>Recents</h2>
 
         <div class="projects-grid">
             <?php if (empty($projets)): ?>
@@ -41,3 +41,4 @@
         </div>
     </div>
 </section>
+
