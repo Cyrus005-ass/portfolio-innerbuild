@@ -1,94 +1,92 @@
 <?php
 $publicTheme = 'midnight';
-if (isset($pdo)) {
-    try {
-        $themeCheck = $pdo->query("SHOW COLUMNS FROM profil LIKE 'site_theme'");
-        if ($themeCheck && $themeCheck->fetch()) {
-            $themeRow = $pdo->query("SELECT site_theme FROM profil WHERE id = 1 LIMIT 1")->fetch();
-            if (!empty($themeRow['site_theme'])) {
-                $publicTheme = (string) $themeRow['site_theme'];
-            }
-        }
-    } catch (Exception $e) {
-        $publicTheme = 'midnight';
-    }
+$siteFont = 'outfit';
+$titleScale = 1.0;
+$textScale = 1.0;
+$accentColor = '#8EB8FF';
+$accentSoftColor = '#C5DCFF';
+$bgColor = '#0B0F16';
+$surfaceColor = '#131A25';
+$basePath = rtrim((string) ($config['base_path'] ?? ''), '/');
+
+if (isset($profil) && is_array($profil)) {
+    $publicTheme = !empty($profil['site_theme']) ? (string) $profil['site_theme'] : 'midnight';
+    $siteFont = !empty($profil['site_font']) ? (string) $profil['site_font'] : 'outfit';
+    $titleScale = isset($profil['title_scale']) ? (float) $profil['title_scale'] : 1.0;
+    $textScale = isset($profil['text_scale']) ? (float) $profil['text_scale'] : 1.0;
+    $accentColor = !empty($profil['accent_color']) ? (string) $profil['accent_color'] : '#8EB8FF';
+    $accentSoftColor = !empty($profil['accent_soft_color']) ? (string) $profil['accent_soft_color'] : '#C5DCFF';
+    $bgColor = !empty($profil['bg_color']) ? (string) $profil['bg_color'] : '#0B0F16';
+    $surfaceColor = !empty($profil['surface_color']) ? (string) $profil['surface_color'] : '#131A25';
 }
+
 $allowedPublicThemes = ['midnight', 'ocean', 'sunset', 'forest'];
 if (!in_array($publicTheme, $allowedPublicThemes, true)) {
     $publicTheme = 'midnight';
 }
+
+$fontMap = [
+    'outfit' => 'Outfit:wght@300;400;500;600;700;800',
+    'syne' => 'Syne:wght@400;500;600;700;800',
+    'sora' => 'Sora:wght@300;400;500;600;700;800',
+    'manrope' => 'Manrope:wght@300;400;500;600;700;800',
+];
+
+if (!isset($fontMap[$siteFont])) {
+    $siteFont = 'outfit';
+}
+
+$titleScale = max(0.8, min(1.4, $titleScale));
+$textScale = max(0.9, min(1.2, $textScale));
+
+$colorRegex = '/^#[0-9A-Fa-f]{6}$/';
+$accentColor = preg_match($colorRegex, $accentColor) ? strtoupper($accentColor) : '#8EB8FF';
+$accentSoftColor = preg_match($colorRegex, $accentSoftColor) ? strtoupper($accentSoftColor) : '#C5DCFF';
+$bgColor = preg_match($colorRegex, $bgColor) ? strtoupper($bgColor) : '#0B0F16';
+$surfaceColor = preg_match($colorRegex, $surfaceColor) ? strtoupper($surfaceColor) : '#131A25';
 ?>
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description"
-        content="Développeur web full-stack orienté backend, je conçois des applications web robustes, sécurisées et performantes. J’allie compétences techniques et sens du design pour créer des expériences digitales efficaces et soignées. Passionné par les défis, j’aime repousser mes limites à travers des projets complexes, tout en poursuivant un apprentissage continu, notamment dans le domaine de la cybersécurité.">
-    <meta property="og:title" content="Cyrus-y ASSOGBA | Développeur Web Full-Stack & UI/UX Designer au Bénin" />
-    <meta property="og:description"
-        content="Développeur web full-stack (backend & UI/UX), je crée des applications et sites web modernes, performants et sur mesure. Passionné par les défis et les nouvelles technologies." />
-    <meta property="og:image" content="../assets/img/cyr.png">
-    <meta property="og:site_name" content="Cyrus-y ASSOGBA Portfolio">
+    <meta name="description" content="Developpeur web full-stack oriente backend, je concois des applications web robustes, securisees et performantes.">
+    <meta property="og:title" content="Portfolio - Developpeur Web Full-Stack" />
+    <meta property="og:description" content="Applications et sites web modernes, performants et sur mesure." />
+    <meta property="og:image" content="<?= htmlspecialchars($basePath . '/assets/img/cyr.png') ?>">
+    <meta property="og:site_name" content="Portfolio">
     <meta property="og:type" content="website" />
-    <title>Cyrus-y ASSOGBA | Développeur web full-stack</title>
     <meta property="og:locale" content="fr">
-    <link rel="icon" type="image/png" sizes="32x32" href="../assets/img/cyr.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="../assets/img/cyr.png">
-    <link rel="apple-touch-icon" href="../assets/img/cyr.png">
+    <title>Portfolio | Developpeur web full-stack</title>
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-95W2Q21NZD"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
+    <link rel="icon" type="image/png" sizes="32x32" href="<?= htmlspecialchars($basePath . '/assets/img/cyr.png') ?>">
+    <link rel="apple-touch-icon" href="<?= htmlspecialchars($basePath . '/assets/img/cyr.png') ?>">
 
-        gtag('config', 'G-95W2Q21NZD');
-    </script>
-
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=<?= htmlspecialchars($fontMap[$siteFont]) ?>&display=swap" rel="stylesheet">
 
-    <!-- CSS (Locomotive Scroll + Custom CSS) -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.css">
-    <link rel="stylesheet" href="<?= htmlspecialchars($config['app_url'] ?? '') ?>/../assets/css/style.css">
+    <link rel="stylesheet" href="<?= htmlspecialchars($basePath . '/assets/css/style.css') ?>">
+
     <style>
-        body[data-theme="midnight"] {
-            --accent: #8eb8ff;
-            --accent-2: #c5dcff;
-            --bg-dark: #0b0f16;
+        body {
+            --accent: <?= htmlspecialchars($accentColor) ?>;
+            --accent-2: <?= htmlspecialchars($accentSoftColor) ?>;
+            --bg-dark: <?= htmlspecialchars($bgColor) ?>;
+            --bg-elev: <?= htmlspecialchars($surfaceColor) ?>;
+            --title-scale: <?= htmlspecialchars((string) $titleScale) ?>;
+            --text-scale: <?= htmlspecialchars((string) $textScale) ?>;
+            --font-main: '<?= htmlspecialchars(ucfirst($siteFont)) ?>', sans-serif;
         }
 
-        body[data-theme="ocean"] {
-            --accent: #5fd2ff;
-            --accent-2: #b6f0ff;
-            --bg-dark: #07131b;
-        }
-
-        body[data-theme="sunset"] {
-            --accent: #ffad66;
-            --accent-2: #ffd3ad;
-            --bg-dark: #1a120d;
-        }
-
-        body[data-theme="forest"] {
-            --accent: #72d89a;
-            --accent-2: #c1f1d5;
-            --bg-dark: #0d1711;
-        }
+        body[data-theme="midnight"] { --theme-tint: #1d2f4a; }
+        body[data-theme="ocean"] { --theme-tint: #0f3440; }
+        body[data-theme="sunset"] { --theme-tint: #3a2413; }
+        body[data-theme="forest"] { --theme-tint: #1a3523; }
     </style>
 </head>
 
 <body data-theme="<?= htmlspecialchars($publicTheme) ?>">
-
-    <!-- Custom Cursor -->
-    <div class="cursor"></div>
-
-    
     <div class="loading-container">
         <div class="loading-screen">
             <div class="loading-words">
@@ -96,33 +94,27 @@ if (!in_array($publicTheme, $allowedPublicThemes, true)) {
                 <h2>Bonjour<div class="dot"></div></h2>
                 <h2>Hola<div class="dot"></div></h2>
                 <h2>Salut<div class="dot"></div></h2>
-                <h2>Cyrus-y<div class="dot"></div></h2>
-                <h2>ASSOGBA<div class="dot"></div></h2>
             </div>
         </div>
     </div>
 
-    <!-- Loader/Spinner pourrait être ajouté ici -->
-
     <header class="main-header">
         <nav class="navbar">
             <div class="logo">
-                <a href="#" class="logo-link">
-                    <span class="logo-avatar" aria-hidden="true">
-                        <img src="../assets/img/cyr.png" alt="">
-                    </span>
+                <a href="#hero" class="logo-link">
+                    <span class="logo-avatar" aria-hidden="true"><img src="<?= htmlspecialchars($basePath . '/assets/img/cyr.png') ?>" alt=""></span>
                     <span>C-Y Ass</span>
                 </a>
             </div>
             <ul class="nav-links">
                 <li><a href="#hero">Accueil</a></li>
-                <li><a href="#about">À propos</a></li>
-                <li><a href="#skills">Compétences</a></li>
+                <li><a href="#about">A propos</a></li>
+                <li><a href="#skills">Competences</a></li>
                 <li><a href="#projects">Projets</a></li>
                 <li><a href="#certifications">Certifications</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
-            <button class="menu-toggle" aria-label="Ouvrir le menu">
+            <button class="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -130,5 +122,4 @@ if (!in_array($publicTheme, $allowedPublicThemes, true)) {
         </nav>
     </header>
 
-    <!-- Wrapper principal pour Locomotive Scroll -->
-    <main data-scroll-container id="main-container">
+    <main id="main-container">

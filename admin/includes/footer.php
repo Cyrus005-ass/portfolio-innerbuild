@@ -1,4 +1,4 @@
-    </main> <!-- Fin .main-content -->
+    </main>
 
     <script>
     (function () {
@@ -11,7 +11,7 @@
         toggle.addEventListener('click', function () {
             const isOpen = sidebar.classList.toggle('nav-open');
             toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-            toggle.textContent = isOpen ? '×' : '☰';
+            toggle.textContent = isOpen ? '\u00D7' : '\u2630';
         });
 
         nav.querySelectorAll('a').forEach(function (link) {
@@ -19,7 +19,7 @@
                 if (window.innerWidth <= 980) {
                     sidebar.classList.remove('nav-open');
                     toggle.setAttribute('aria-expanded', 'false');
-                    toggle.textContent = '☰';
+                    toggle.textContent = '\u2630';
                 }
             });
         });

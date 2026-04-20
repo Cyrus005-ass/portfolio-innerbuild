@@ -6,46 +6,46 @@ require_once __DIR__ . '/../src/includes/db.php';
 $pageTitle = 'Dashboard';
 
 $stmt = $pdo->query("SELECT COUNT(*) as total FROM messages WHERE traite = 0");
-$messagesCount = $stmt->fetch()['total'];
+$messagesCount = (int) $stmt->fetch()['total'];
 
 $stmt = $pdo->query("SELECT COUNT(*) as total FROM projets");
-$projetsCount = $stmt->fetch()['total'];
+$projetsCount = (int) $stmt->fetch()['total'];
 
 $stmt = $pdo->query("SELECT COUNT(*) as total FROM skills");
-$skillsCount = $stmt->fetch()['total'];
+$skillsCount = (int) $stmt->fetch()['total'];
 
 include __DIR__ . '/includes/header.php';
 ?>
 
 <h1>Bienvenue, <?= htmlspecialchars($_SESSION['admin_email']) ?></h1>
 
-<div class="grid">
+<div class="grid" style="margin-top: 18px;">
     <div class="card">
-        <h3>Messages Non Lus</h3>
-        <p style="font-size: 2rem; font-weight: bold; margin: 10px 0; color: <?= $messagesCount > 0 ? '#ff5555' : 'white' ?>;"><?= $messagesCount ?></p>
-        <a href="messages.php" style="color: #aaa;">Voir les messages &rarr;</a>
+        <h3>Messages non lus</h3>
+        <p class="stats-number" style="color: <?= $messagesCount > 0 ? 'var(--danger)' : 'var(--text)' ?>;"><?= $messagesCount ?></p>
+        <a class="btn-link" href="messages.php">Voir les messages ?</a>
     </div>
-    
+
     <div class="card">
         <h3>Projets</h3>
-        <p style="font-size: 2rem; font-weight: bold; margin: 10px 0;"><?= $projetsCount ?></p>
-        <a href="projets.php" style="color: #aaa;">Gérer les projets &rarr;</a>
+        <p class="stats-number"><?= $projetsCount ?></p>
+        <a class="btn-link" href="projets.php">Gerer les projets ?</a>
     </div>
-    
+
     <div class="card">
-        <h3>Compétences</h3>
-        <p style="font-size: 2rem; font-weight: bold; margin: 10px 0;"><?= $skillsCount ?></p>
-        <a href="skills.php" style="color: #aaa;">Gérer les compétences &rarr;</a>
+        <h3>Competences</h3>
+        <p class="stats-number"><?= $skillsCount ?></p>
+        <a class="btn-link" href="skills.php">Gerer les competences ?</a>
     </div>
 </div>
 
-<div class="card" style="margin-top: 40px;">
-    <h2>Actions Rapides</h2>
-    <p>Depuis le menu latéral, vous pouvez ajouter ou modifier le contenu de votre portfolio.</p>
-    <div style="display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap;">
-        <a href="projets_edit.php" class="btn" style="background: #3b82f6;">+ Nouveau projet</a>
-        <a href="skills_edit.php" class="btn" style="background: #3b82f6;">+ Nouvelle compétence</a>
-        <a href="certifications_edit.php" class="btn" style="background: #3b82f6;">+ Nouvelle certification</a>
+<div class="card" style="margin-top: 16px;">
+    <h2>Actions rapides</h2>
+    <p class="muted">Ajoute ou modifie rapidement le contenu du portfolio.</p>
+    <div class="form-actions">
+        <a href="projets_edit.php" class="btn btn-primary">+ Nouveau projet</a>
+        <a href="skills_edit.php" class="btn btn-primary">+ Nouvelle competence</a>
+        <a href="certifications_edit.php" class="btn btn-primary">+ Nouvelle certification</a>
     </div>
 </div>
 

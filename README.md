@@ -1,198 +1,68 @@
-# InnerBuild — Portfolio personnel premium
+﻿# InnerBuild Portfolio
 
-Portfolio one-page en PHP orienté **impact visuel**, **performance** et **gestion simple via admin**.
-Le rendu visé s'inspire de l'approche de dennissnellenberg.com : storytelling, animations fluides, typographie forte, transitions soignées.
+Portfolio PHP + espace admin (projets, competences, certifications, profil, messages), optimisé pour local (WAMP) et InfinityFree.
 
----
+## Structure utilisee
 
-## 1) Objectif du projet
+- `index.php` : point d'entree racine
+- `public/` : point d'entree public du site
+- `templates/` : sections du portfolio
+- `assets/` : CSS, JS, images, fonts
+- `admin/` : back-office
+- `src/config/` : configuration environnement + SQL
+- `src/includes/` : db, securite, helpers, upload
+- `src/uploads/` : fichiers uploades depuis admin
 
-Construire un portfolio moderne qui met en valeur :
-- le profil développeur,
-- les compétences,
-- les projets,
-- les certifications,
-- un contact direct,
+## Prerequis
 
-avec un back-office pour administrer facilement le contenu.
+- PHP 8.0+
+- MySQL/MariaDB
+- Extensions PHP: `pdo`, `pdo_mysql`, `gd`, `fileinfo`
 
----
+## Installation locale (WAMP)
 
-## 2) Direction artistique cible
+1. Copier le projet dans `C:\wamp64\www\inner`
+2. Creer une base `innerbuild_db`
+3. Importer `src/config/init.sql`
+4. Ouvrir: `http://localhost/inner/`
+5. Admin: `http://localhost/inner/admin/login.php`
 
-> Inspiration : `dennissnellenberg.com` (sans copie pixel-perfect).
+Le fichier `src/config/config.php` detecte automatiquement localhost.
 
-Principes à respecter :
-- **Narration visuelle** : homepage qui raconte un parcours (hero -> expertise -> preuves -> contact).
-- **Motion design utile** : animations GSAP + ScrollTrigger + Locomotive Scroll au service du contenu.
-- **Hiérarchie typographique forte** : gros titres, rythme vertical, micro-détails.
-- **Look premium** : contraste propre, grilles maîtrisées, hover states précis.
-- **Performance d'abord** : animations fluides sans sacrifier le temps de chargement.
+## Configuration InfinityFree
 
----
+Renseigner dans `src/config/config.php` (deja preconfigure en auto-prod):
 
-## 3) Fonctionnalités attendues
+- Host: `sql100.infinityfree.com`
+- DB: `if0_41706453_innerbuild_db`
+- User: `if0_41706453`
+- Mot de passe: variable d'environnement `IF_DB_PASS` (recommande)
 
-### Front office
-- Hero (nom, accroche, CTA, photo)
-- À propos (histoire + valeurs)
-- Compétences (tech + soft skills)
-- Certifications (image/PDF, organisme, date, lien de vérification)
-- Projets (2-4 projets phares)
-- Contact (formulaire + message de confirmation)
+URL production: `https://cyrus-innerbuild.kesug.com/`
 
-### Back office
-- Authentification admin
-- Gestion certifications (CRUD + ordre + statut)
-- Upload sécurisé (images + PDF)
-- Gestion projets / profil / skills (selon avancement)
+## Fonctionnalites admin
 
----
+- Modifier textes du profil
+- Changer couleurs, font, tailles globales
+- Ajouter/editer/supprimer projets, skills, certifications
+- Upload d'images optimise (validation MIME + redimensionnement)
+- Gestion des messages de contact
 
-## 4) Stack technique
+## Notes de securite
 
-- **Backend** : PHP 8+
-- **Base de données** : MySQL
-- **DB actuelle** : `innerbuild_db`
-- **Frontend** : HTML5, CSS3, JavaScript
-- **Animations** : GSAP, ScrollTrigger, Locomotive Scroll
-- **Environnement local** : WAMP
-
----
-
-## 5) Arborescence actuelle
-
-```txt
-inner/
-├── admin/
-├── assets/
-│   ├── css/
-│   ├── js/
-│   └── img/
-├── public/
-├── src/
-│   ├── config/
-│   ├── includes/
-│   └── uploads/
-└── templates/
-    └── sections/
-```
-
----
-
-## 6) Installation locale
-
-1. Placer le projet dans `C:\wamp64\www\inner`
-2. Démarrer Apache + MySQL (WAMP)
-3. Créer/importer la base de données : `innerbuild_db`
-4. Configurer la connexion DB dans `src/config/config.php`
-5. Vérifier les droits d'écriture sur `src/uploads/`
-6. Ouvrir : `http://localhost/inner/public`
-
----
-
-## 7) Configuration DB (template)
-
-```php
-<?php
-return [
-    'db_host' => '127.0.0.1',
-    'db_name' => 'innerbuild_db',
-    'db_user' => 'root',
-    'db_pass' => '',
-    'db_charset' => 'utf8mb4',
-    'base_url' => 'http://localhost/inner/public',
-];
-```
-
----
-
-## 8) Structure SQL cible (à compléter)
-
-- `profil` : infos personnelles, bio, avatar
-- `skills` : nom, niveau, type, ordre
-- `projets` : titre, description, stack, image, lien, ordre, statut
-- `certifications` : titre, organisme, date_obtention, image, pdf, verification_url, ordre, actif
-- `messages` : nom, email, sujet, message, created_at
-- `admins` : email, mot_de_passe_hash, role, last_login
-
----
-
-## 9) Sécurité minimale requise
-
-- Requêtes préparées PDO
-- Validation + sanitation des entrées
-- Contrôle MIME réel côté serveur
-- Renommage des fichiers uploadés
-- Limite de taille upload
-- Protection session admin (timeout + regeneration id)
 - Token CSRF sur formulaires sensibles
+- Validation serveur des uploads
+- Ne pas versionner les mots de passe en clair
 
----
+## Deploiement
 
-## 10) Checklist design (style premium)
+Pour un package de production, garder:
 
-- [ ] Hero plein écran avec message fort
-- [ ] Scroll smooth calibré (desktop/mobile)
-- [ ] Titres à forte personnalité
-- [ ] Transitions section-to-section cohérentes
-- [ ] Section Certifications en grille moderne
-- [ ] Hover states précis (projets/certifs)
-- [ ] CTA visible et répétée intelligemment
-- [ ] Footer sobre et pro
+- `index.php`
+- `public/`
+- `templates/`
+- `assets/`
+- `admin/`
+- `src/`
+- `.htaccess` (si necessaire selon hebergeur)
 
----
-
-## 11) État d'avancement
-
-- [x] Base du projet en place
-- [x] DB créée : `innerbuild_db`
-- [ ] Intégration visuelle haut de gamme finalisée
-- [ ] Admin finalisé (CRUD complet)
-- [ ] Optimisation performance (Lighthouse)
-- [ ] Mise en production
-
----
-
-## 12) Roadmap
-
-### v1.0
-- Finaliser homepage one-page premium
-- Finaliser admin certifications + projets
-- Stabiliser sécurité et uploads
-
-### v1.1
-- Filtrage dynamique projets/certifs
-- Amélioration animations avancées
-
-### v1.2
-- Version bilingue FR/EN
-- Dashboard admin avec statistiques
-
----
-
-## 13) Déploiement (pré-prod / prod)
-
-- [ ] Config `APP_ENV=production`
-- [ ] Désactiver affichage erreurs PHP
-- [ ] Activer HTTPS
-- [ ] Configurer backups DB
-- [ ] Vérifier permissions dossiers uploads
-- [ ] Tester formulaire contact en réel
-
----
-
-## 14) Auteur
-
-- **Nom** : Cyrus-y ASSOGBA
-- **Rôle** : Développeur Web Full-Stack & UI/UX Designer
-- **Localisation** : Bénin
-- **Portfolio** : `<a-completer>`
-- **LinkedIn** : `<a-completer>`
-- **Email** : `<a-completer>`
-
----
-
-## 15) Licence
-
-`A définir` (MIT, propriétaire, etc.)

@@ -1,6 +1,5 @@
 <?php
-// S'assurer que le titre est défini
-$pageTitle = $pageTitle ?? "Dashboard";
+$pageTitle = $pageTitle ?? 'Dashboard';
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -8,44 +7,47 @@ $pageTitle = $pageTitle ?? "Dashboard";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($pageTitle) ?> - Admin Portfolio</title>
-    <!-- On utilise une police basique pour l'admin -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #141516;
-            --surface: #1c1d20;
-            --text: #ffffff;
-            --text-muted: #888;
-            --primary: #ffffff;
-            --border: #333;
+            --bg: #111214;
+            --surface: #1a1c20;
+            --surface-soft: #20242b;
+            --text: #f5f7ff;
+            --text-muted: #9aa4b7;
+            --border: #303745;
+            --primary: #69a7ff;
+            --danger: #ff5f5f;
+            --success: #2ebd59;
+            --radius: 10px;
         }
-        
+
+        * { box-sizing: border-box; }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
             margin: 0;
-            padding: 0;
-            display: flex;
             min-height: 100vh;
+            display: flex;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
         }
-        
-        /* Sidebar */
+
+        a { color: inherit; }
+
         .sidebar {
-            width: 250px;
-            background-color: var(--surface);
+            width: 260px;
+            background: var(--surface);
             border-right: 1px solid var(--border);
             display: flex;
             flex-direction: column;
-            transition: transform .25s ease;
         }
-        
+
         .sidebar-header {
-            padding: 20px;
+            padding: 18px 20px;
             border-bottom: 1px solid var(--border);
+            font-size: 1.1rem;
             font-weight: 600;
-            font-size: 1.2rem;
-            text-align: center;
             position: relative;
         }
 
@@ -56,145 +58,267 @@ $pageTitle = $pageTitle ?? "Dashboard";
             top: 50%;
             transform: translateY(-50%);
             border: 1px solid var(--border);
-            background: rgba(255,255,255,.05);
+            background: rgba(255, 255, 255, 0.04);
             color: var(--text);
             border-radius: 8px;
             width: 36px;
             height: 32px;
             cursor: pointer;
-            font-size: 1.1rem;
-            line-height: 1;
         }
-        
+
         .nav-links {
-            list-style: none;
-            padding: 0;
             margin: 0;
-            flex-grow: 1;
+            padding: 0;
+            list-style: none;
+            flex: 1;
         }
-        
-        .nav-links li a {
+
+        .nav-links a {
             display: block;
-            padding: 15px 20px;
-            color: var(--text-muted);
+            padding: 13px 20px;
             text-decoration: none;
+            color: var(--text-muted);
             border-bottom: 1px solid var(--border);
-            transition: 0.2s;
+            transition: 0.2s ease;
         }
-        
-        .nav-links li a:hover, .nav-links li a.active {
+
+        .nav-links a:hover,
+        .nav-links a.active {
             color: var(--text);
-            background-color: rgba(255,255,255,0.05);
+            background: rgba(255, 255, 255, 0.05);
         }
-        
+
         .logout {
-            padding: 20px;
-            text-align: center;
+            padding: 16px 20px;
             border-top: 1px solid var(--border);
         }
-        
+
         .logout a {
-            color: #ff5555;
             text-decoration: none;
+            color: var(--danger);
         }
-        
-        /* Main Content */
+
         .main-content {
-            flex-grow: 1;
-            padding: 40px;
+            flex: 1;
+            padding: 28px;
             overflow-y: auto;
         }
-        
-        /* Utilities */
-        h1 { margin-top: 0; font-weight: 300; }
-        .card { background: var(--surface); padding: 25px; border-radius: 8px; margin-bottom: 20px; border: 1px solid var(--border); }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+
+        h1 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+        }
+
+        h2,
+        h3,
+        p {
+            margin-top: 0;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 18px;
+            margin-bottom: 16px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 14px;
+        }
+
+        .page-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            border: 1px solid transparent;
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-weight: 600;
+            font-size: 0.93rem;
+            text-decoration: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .btn-primary { background: var(--primary); color: #071326; }
+        .btn-light { background: #f4f7ff; color: #121722; }
+        .btn-danger { color: var(--danger); background: transparent; border-color: var(--danger); }
+        .btn-link { color: var(--text-muted); text-decoration: none; }
+
+        .alert {
+            padding: 12px 14px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            border: 1px solid transparent;
+        }
+
+        .alert-success { background: rgba(46, 189, 89, 0.18); border-color: rgba(46, 189, 89, 0.45); color: #c9f5d7; }
+        .alert-error { background: rgba(255, 95, 95, 0.18); border-color: rgba(255, 95, 95, 0.45); color: #ffd3d3; }
+
+        .muted { color: var(--text-muted); }
+        .actions-inline { display: inline-flex; align-items: center; gap: 10px; }
+        .text-link { color: #8ec0ff; text-decoration: none; }
+
+        .stats-number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 8px 0 10px;
+        }
+
+        .table-wrap {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: auto;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            min-width: 760px;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+
+        .data-table tbody tr:last-child td {
+            border-bottom: 0;
+        }
+
+        .thumb {
+            width: 84px;
+            height: 54px;
+            border-radius: 6px;
+            object-fit: cover;
+            background: var(--surface-soft);
+            border: 1px solid var(--border);
+        }
+
+        .thumb-round {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: var(--surface-soft);
+            border: 1px solid var(--border);
+        }
+
+        .form-shell { max-width: 920px; }
+        .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .form-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+        .form-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+        .form-row { margin-bottom: 14px; }
+        .form-label { display: block; margin-bottom: 6px; font-weight: 500; }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 11px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: #11151d;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 0.95rem;
+        }
+
+        textarea.form-control { min-height: 110px; resize: vertical; }
+        .form-actions { margin-top: 8px; display: flex; gap: 10px; flex-wrap: wrap; }
+
+        .message-card {
+            border-left: 4px solid var(--border);
+        }
+
+        .message-card.unread {
+            border-left-color: var(--danger);
+        }
+
+        .message-meta {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        .message-content {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px;
+            white-space: pre-wrap;
+            line-height: 1.55;
+        }
 
         @media (max-width: 980px) {
-            body {
-                display: block;
-            }
-
+            body { display: block; }
             .sidebar {
                 width: 100%;
                 border-right: 0;
                 border-bottom: 1px solid var(--border);
-                transform: translateY(0);
             }
-
-            .sidebar-header {
-                text-align: left;
-                padding-right: 56px;
-            }
-
             .sidebar-toggle {
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
             }
-
             .nav-links {
                 max-height: 0;
                 overflow: hidden;
-                transition: max-height .25s ease;
+                transition: max-height 0.25s ease;
             }
-
             .sidebar.nav-open .nav-links {
                 max-height: 70vh;
                 overflow-y: auto;
             }
-
-            .logout {
-                display: none;
-            }
-
-            .sidebar.nav-open .logout {
-                display: block;
-            }
-
-            .main-content {
-                padding: 20px;
-            }
-
-            .grid {
+            .logout { display: none; }
+            .sidebar.nav-open .logout { display: block; }
+            .main-content { padding: 18px; }
+            .form-grid-2,
+            .form-grid-3,
+            .form-grid-4 {
                 grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 560px) {
-            .main-content {
-                padding: 14px;
-            }
-
-            .card {
-                padding: 16px;
-            }
-
-            h1 {
-                font-size: 1.5rem;
             }
         }
     </style>
 </head>
 <body>
+<aside class="sidebar" id="adminSidebar">
+    <div class="sidebar-header">
+        Admin Panel
+        <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-expanded="false" aria-controls="adminNav">&#9776;</button>
+    </div>
+    <ul class="nav-links" id="adminNav">
+        <li><a href="index.php" <?= basename($_SERVER['PHP_SELF']) === 'index.php' ? 'class="active"' : '' ?>>Tableau de bord</a></li>
+        <li><a href="profil.php" <?= basename($_SERVER['PHP_SELF']) === 'profil.php' ? 'class="active"' : '' ?>>Mon Profil</a></li>
+        <li><a href="projets.php" <?= basename($_SERVER['PHP_SELF']) === 'projets.php' ? 'class="active"' : '' ?>>Projets</a></li>
+        <li><a href="skills.php" <?= basename($_SERVER['PHP_SELF']) === 'skills.php' ? 'class="active"' : '' ?>>Competences</a></li>
+        <li><a href="certifications.php" <?= basename($_SERVER['PHP_SELF']) === 'certifications.php' ? 'class="active"' : '' ?>>Certifications</a></li>
+        <li><a href="messages.php" <?= basename($_SERVER['PHP_SELF']) === 'messages.php' ? 'class="active"' : '' ?>>Messages</a></li>
+        <li><a href="../public/index.php" target="_blank" rel="noopener noreferrer">Voir le site -></a></li>
+    </ul>
+    <div class="logout">
+        <a href="logout.php">Deconnexion</a>
+    </div>
+</aside>
 
-    <aside class="sidebar" id="adminSidebar">
-        <div class="sidebar-header">
-            Admin Panel
-            <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-expanded="false" aria-controls="adminNav">☰</button>
-        </div>
-        <ul class="nav-links" id="adminNav">
-            <li><a href="index.php" <?= basename($_SERVER['PHP_SELF']) == 'index.php' ? 'class="active"' : '' ?>>Tableau de bord</a></li>
-            <li><a href="profil.php" <?= basename($_SERVER['PHP_SELF']) == 'profil.php' ? 'class="active"' : '' ?>>Mon Profil</a></li>
-            <li><a href="projets.php" <?= basename($_SERVER['PHP_SELF']) == 'projets.php' ? 'class="active"' : '' ?>>Projets</a></li>
-            <li><a href="skills.php" <?= basename($_SERVER['PHP_SELF']) == 'skills.php' ? 'class="active"' : '' ?>>Compétences</a></li>
-            <li><a href="certifications.php" <?= basename($_SERVER['PHP_SELF']) == 'certifications.php' ? 'class="active"' : '' ?>>Certifications</a></li>
-            <li><a href="messages.php" <?= basename($_SERVER['PHP_SELF']) == 'messages.php' ? 'class="active"' : '' ?>>Messages</a></li>
-            <li><a href="../public/index.php" target="_blank">Voir le site ↗</a></li>
-        </ul>
-        <div class="logout">
-            <a href="logout.php">Déconnexion</a>
-        </div>
-    </aside>
+<main class="main-content">
 
-    <main class="main-content">
