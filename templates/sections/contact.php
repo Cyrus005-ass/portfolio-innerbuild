@@ -32,12 +32,12 @@ $photoC = resolveMediaPath($profilData['avatar'] ?? '', '../assets/img/cyr.png')
                 <input type="hidden" name="csrf_token" value="<?= e($csrf ?? '') ?>">
 
                 <div class="contact-grid">
-                    <div class="form-group"><input type="text" name="nom" placeholder="Votre nom" required></div>
-                    <div class="form-group"><input type="email" name="email" placeholder="Votre email" required></div>
+                    <div class="form-group"><input type="text" name="nom" placeholder="Votre nom" autocomplete="name" required></div>
+                    <div class="form-group"><input type="email" name="email" placeholder="Votre email" autocomplete="email" required></div>
                 </div>
 
-                <div class="form-group"><input type="text" name="sujet" placeholder="Sujet" required></div>
-                <div class="form-group"><textarea name="message" placeholder="Votre message" rows="5" required></textarea></div>
+                <div class="form-group"><input type="text" name="sujet" placeholder="Sujet" autocomplete="off" required></div>
+                <div class="form-group"><textarea name="message" placeholder="Votre message" autocomplete="off" rows="5" required></textarea></div>
 
                 <div class="contact-submit-wrap">
                     <button type="submit" class="btn btn-primary magnetic">Envoyer le message</button>
@@ -56,4 +56,5 @@ $photoC = resolveMediaPath($profilData['avatar'] ?? '', '../assets/img/cyr.png')
         </div>
     </div>
 </section>
+
 

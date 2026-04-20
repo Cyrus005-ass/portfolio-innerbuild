@@ -115,12 +115,12 @@ $surfaceColor = preg_match($colorRegex, $surfaceColor) ? strtoupper($surfaceColo
                     <button type="button" class="menu-close" aria-label="Fermer le menu">&times;</button>
                 </div>
                 <ul class="nav-links-list">
-                    <li><a class="nav-link" href="#hero"><span class="nav-icon">🏠</span><span>Accueil</span></a></li>
-                    <li><a class="nav-link" href="#about"><span class="nav-icon">👤</span><span>A propos</span></a></li>
-                    <li><a class="nav-link" href="#skills"><span class="nav-icon">🔧</span><span>Competences</span></a></li>
-                    <li><a class="nav-link" href="#projects"><span class="nav-icon">📁</span><span>Projets</span></a></li>
-                    <li><a class="nav-link" href="#certifications"><span class="nav-icon">🏆</span><span>Certifications</span></a></li>
-                    <li><a class="nav-link" href="#contact"><span class="nav-icon">✉️</span><span>Contact</span></a></li>
+                    <li><a class="nav-link" href="#hero"><span>Accueil</span></a></li>
+                    <li><a class="nav-link" href="#about"><span>A propos</span></a></li>
+                    <li><a class="nav-link" href="#skills"><span>Competences</span></a></li>
+                    <li><a class="nav-link" href="#projects"><span>Projets</span></a></li>
+                    <li><a class="nav-link" href="#certifications"><span>Certifications</span></a></li>
+                    <li><a class="nav-link" href="#contact"><span>Contact</span></a></li>
                 </ul>
             </aside>
 
@@ -134,3 +134,4 @@ $surfaceColor = preg_match($colorRegex, $surfaceColor) ? strtoupper($surfaceColo
     </header>
 
     <main id="main-container">
+

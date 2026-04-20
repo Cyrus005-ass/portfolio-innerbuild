@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once __DIR__ . '/../src/config/config.php';
 require_once __DIR__ . '/../src/includes/db.php';
 require_once __DIR__ . '/../src/includes/security.php';
@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $csrf_token = $_POST['csrf_token'] ?? '';
 
     if (!verifyCsrfToken($csrf_token)) {
-        $error = "Token de sécurité invalide.";
+        $error = "Token de sÃ©curitÃ© invalide.";
     } else {
         $stmt = $pdo->prepare("SELECT id, email, mot_de_passe_hash, role FROM admins WHERE email = :email LIMIT 1");
         $stmt->execute(['email' => $email]);
@@ -71,11 +71,11 @@ $csrf_token = generateCsrfToken();
             <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>">
             <div class="form-group">
                 <label>Adresse Email</label>
-                <input type="email" name="email" required>
+                <input type="email" name="email" autocomplete="username" required>
             </div>
             <div class="form-group">
                 <label>Mot de passe</label>
-                <input type="password" name="password" required>
+                <input type="password" name="password" autocomplete="current-password" required>
             </div>
             <button type="submit" class="btn">Se connecter</button>
         </form>
